@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-ink;
+  }
+
+  /* Visible focus for keyboard users — accessibility baseline */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer components {
+  /* small uppercase label used above section headings */
+  .label {
+    @apply text-xs font-semibold uppercase tracking-label text-ink-soft;
+  }
+
+  /* generous editorial section rhythm */
+  .section {
+    @apply py-20 md:py-28;
+  }
+
+  /* hairline divider — replaces the old decorative dovetail joints */
+  .hairline {
+    @apply border-t border-line;
+  }
+}
