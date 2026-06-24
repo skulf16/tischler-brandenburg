@@ -46,7 +46,7 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden bg-walnut text-cream">
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/img/slider1.jpg"
+            src="/img/stecheisen-detail.jpg"
             alt=""
             fill
             priority
