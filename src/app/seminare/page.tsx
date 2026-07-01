@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     "Aktuelle Seminare und Fortbildungen des Fachverbands Tischler Brandenburg.",
 };
 
-// Daten alle 10 Minuten neu aus der Kursboard-DB laden (schont die DB,
-// hält die Anzeige aber aktuell genug für einen Seminarkalender).
-export const revalidate = 600;
+// Zur Laufzeit rendern, nicht beim Build — sonst würde der Build-Server
+// die DB brauchen. So wird die DB erst beim Seitenaufruf abgefragt.
+export const dynamic = "force-dynamic";
 
 function Platzstatus({ frei, gesamt }: { frei: number; gesamt: number }) {
   if (frei <= 0) {
@@ -84,7 +84,13 @@ function SeminarKarte({ s }: { s: Seminar }) {
 }
 
 export default async function SeminarePage() {
-  const seminare = await getSeminare("tischler");
+  let seminare: Seminar[] = [];
+  try {
+    seminare = await getSeminare("tischler");
+  } catch (e) {
+    // DB nicht erreichbar → leere Liste statt Absturz
+    console.error("Seminare konnten nicht geladen werden:", e);
+  }
 
   return (
     <>

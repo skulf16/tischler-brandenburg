@@ -5,14 +5,15 @@ import { PageHeader } from "@/components/page-header";
 import { getSeminar, formatDatum, formatPreis } from "@/lib/seminare";
 import { AnmeldeFormular } from "./anmelde-formular";
 
-export const revalidate = 600;
+// Zur Laufzeit rendern, nicht beim Build (DB wird erst beim Aufruf gebraucht).
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const seminar = await getSeminar(Number(params.id));
+  const seminar = await getSeminar(Number(params.id)).catch(() => null);
   return { title: seminar ? `${seminar.titel} — Tischler Brandenburg` : "Seminar" };
 }
 
@@ -24,7 +25,7 @@ export default async function SeminarDetailPage({
   const id = Number(params.id);
   if (!Number.isInteger(id) || id <= 0) notFound();
 
-  const seminar = await getSeminar(id);
+  const seminar = await getSeminar(id).catch(() => null);
   if (!seminar) notFound();
 
   const ausgebucht = seminar.plaetzeFrei <= 0;
