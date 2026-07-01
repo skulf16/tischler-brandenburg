@@ -21,6 +21,7 @@ export const nav: NavItem[] = [
   { href: "/vorteile", label: "Vorteile" },
   { href: "/leistungen", label: "Leistungen" },
   { href: "/nachwuchs", label: "Nachwuchs" },
+  { href: "/seminare", label: "Seminare" },
   { href: "/projekte", label: "Projekte" },
   { href: "/news", label: "News" },
   { href: "/partner", label: "Partner" },
